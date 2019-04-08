@@ -119,8 +119,8 @@ class AutoCalibUtils:
             R = np.reshape(R, (3, 3))
             # print("R: {}".format(R))
 
-            U, _, V = np.linalg.svd(R, full_matrices=True)
-            R = np.matmul(U, V)
+            # U, _, V = np.linalg.svd(R, full_matrices=True)
+            # R = np.matmul(U, V)
             # print("R: {}".format(R))
             RT = np.column_stack((R[:, :2], t))
             RT4 = np.column_stack((R, t))
@@ -219,17 +219,13 @@ class AutoCalibUtils:
                 M = np.array([[uCap[0]], [vCap[0]], [1]])
                 # print("M after: {}".format(M))
                 #
-                cv2.circle(ImageList[i], mij, 8, (0, 255, 0),
-                           thickness=1, lineType=8, shift=0)
-                cv2.line(ImageList[i], mij, (M/2 - 6, M/2),
-                         (M/2+6, M/2), (255, 255, 255), 8)
-                cv2.line(ImageList[i], mij, (M/2, M/2-6),
-                         (M/2, M/2+6), (255, 255, 255), 8)
+                cv2.circle(ImageList[i], (mij[0], mij[1]), 15, (0, 255, 0),
+                           thickness=8, lineType=8, shift=0)
+                cv2.circle(ImageList[i], (M[0], M[1]), 5, (0, 0, 255),
+                           thickness=5, lineType=8, shift=0)
                 s += np.linalg.norm((mij-M), ord=2)
                 j += 1
-                cv2.imshow('reprojection', ImageList[i])
-                cv2.waitKey()
-                cv2.destroyAllWindows()
+            cv2.imwrite('reprojection'+str(i)+'.png', ImageList[i])
             i += 1
         print((s/d))
         return s/d

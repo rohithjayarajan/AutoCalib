@@ -56,9 +56,7 @@ class AutoCalib:
                     gray, corners, (11, 11), (-1, -1), criteria)
                 WorldPoints.append(Pts3D)
                 ImgPoints.append(corners2)
-                # print(ImgPoints)
-                # print(WorldPoints)
-
+                # print(ImgPoints[0][0][0][0])
                 if debug:
                     print(WorldPoints)
                     img = cv2.drawChessboardCorners(
